@@ -1,0 +1,48 @@
+---
+- name: Create host groups
+  community.zabbix.zabbix_group:
+    server_url: "{{ zabbix_config_server_url }}"
+    login_user: "{{ zabbix_config_login_user }}"
+    login_password: "{{ zabbix_config_login_password }}"
+    state: present
+    host_groups: "{{ item }}"
+  loop: "{{ zabbix_config_host_groups }}"
+  no_log: true
+
+- name: Manage hosts
+  community.zabbix.zabbix_host:
+    description: "{{ item.description | default(omit) }}"
+    host_groups: "{{ item.host_groups | default(omit) }}"
+    host_name: "{{ item.host_name }}"
+    interfaces: "{{ item.interfaces | default(omit) }}"
+    link_templates: "{{ item.link_templates | default(omit) }}"
+    login_password: "{{ zabbix_config_login_password }}"
+    login_user: "{{ zabbix_config_login_user }}"
+    macros: "{{ item.macros | default(omit) }}"
+    server_url: "{{ zabbix_config_server_url }}"
+    state: "{{ item.state | default(omit) }}"
+    status: "{{ item.status | default(omit) }}"
+    tags: "{{ item.tags | default(omit) }}"
+    visible_name: "{{ item.visible_name | default(omit) }}"
+  loop: "{{ zabbix_config_hosts }}"
+  no_log: true
+
+- name: Manage actions
+  community.zabbix.zabbix_action:
+    server_url: "{{ zabbix_config_server_url }}"
+    login_user: "{{ zabbix_config_login_user }}"
+    login_password: "{{ zabbix_config_login_password }}"
+    name: "{{ item.name }}"
+    conditions: "{{ item.conditions | default(omit) }}"
+    esc_period: "{{ item.esc_period | default(omit) }}"
+    eval_type: "{{ item.eval_type | default(omit) }}"
+    event_source: "{{ item,event_source | default(omit) }}"
+    formula: "{{ item.formula | default(omit) }}"
+    operations: "{{ item.operations | default(omit) }}"
+    pause_in_maintenance: "{{ item.pause_in_maintenance | default(omit) }}"
+    recovery_operations: "{{ item.recovery_operations | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+    status: "{{ item.status | default(omit) }}"
+    timeout: "{{ item.timeout | default(omit) }}"
+  loop: "{{ zabbix_config_actions }}"
+  no_log: true

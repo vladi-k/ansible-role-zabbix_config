@@ -1,1 +1,66 @@
-# ansible-role-zabbix_config
+ansible-role-zabbix_config
+====
+
+Manage Zabbix.
+
+Requirements
+------------
+
+* Zabbix 5.4+
+
+Role Variables
+--------------
+
+* `zabbix_config_server_url` - URL of zabbix server
+* `zabbix_config_login_user` - login user
+* `zabbix_config_login_password` - login password
+* `zabbix_config_host_groups` - list of host groups to create, example:
+
+```yaml
+zabbix_config_host_groups:
+  - Web Servers
+```
+
+* `zabbix_config_hosts` - list of hosts to manage, example:
+
+```yaml
+zabbix_config_hosts:
+  - host_name: www.example.com
+    host_groups:
+      - Web Servers
+```
+
+* `zabbix_config_actions` - list of actions
+
+Dependencies
+------------
+
+Collections:
+
+* `community.zabbix`
+
+Example Playbook
+----------------
+
+```
+- hosts: my_servers
+  vars:
+    zabbix_config_host_groups:
+      - Web Servers
+    zabbix_config_hosts:
+      - host_name: www.example.com
+        host_groups:
+          - Web Servers
+  roles:
+    - ansible-role-zabbix_config
+```
+
+License
+-------
+
+GPLv3
+
+Author Information
+------------------
+
+Vladimir Vasilev (@vladi-k)
