@@ -46,3 +46,18 @@
     timeout: "{{ item.timeout | default(omit) }}"
   loop: "{{ zabbix_config_actions }}"
   no_log: true
+
+- name: Manage web scenarios
+  zabbix_webscenario:
+    server_url: "{{ zabbix_config_server_url }}"
+    login_user: "{{ zabbix_config_login_user }}"
+    login_password: "{{ zabbix_config_login_password }}"
+    name: "{{ item.name }}"
+    host_name: "{{ item.host_name }}"
+    steps: "{{ item.steps | default(omit) }}"
+    agent: "{{ item.agent | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+    delay: "{{ item.delay | default(omit) }}"
+    headers: "{{ item.headers | default(omit) }}"
+    retries: "{{ item.retries | default(omit) }}"
+  loop: "{{ zabbix_config_web_scenarios }}"
