@@ -7,7 +7,6 @@
     state: present
     host_groups: "{{ item }}"
   loop: "{{ zabbix_config_host_groups }}"
-  no_log: true
 
 - name: Manage hosts
   community.zabbix.zabbix_host:
@@ -25,7 +24,6 @@
     tags: "{{ item.tags | default(omit) }}"
     visible_name: "{{ item.visible_name | default(omit) }}"
   loop: "{{ zabbix_config_hosts }}"
-  no_log: true
 
 - name: Manage actions
   community.zabbix.zabbix_action:
@@ -45,7 +43,6 @@
     status: "{{ item.status | default(omit) }}"
     timeout: "{{ item.timeout | default(omit) }}"
   loop: "{{ zabbix_config_actions }}"
-  no_log: true
 
 - name: Manage web scenarios
   zabbix_webscenario:
