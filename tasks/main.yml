@@ -1,4 +1,22 @@
 ---
+- name: Manage templates
+  community.zabbix.zabbix_template:
+    server_url: "{{ zabbix_config_server_url }}"
+    login_user: "{{ zabbix_config_login_user }}"
+    login_password: "{{ zabbix_config_login_password }}"
+    clear_templates: "{{ item.clear_templates | default(omit) }}"
+    dump_format: "{{ item.dump_format | default(omit) }}"
+    link_templates: "{{ item.link_templates | default(omit) }}"
+    macros: "{{ item.macros | default(omit) }}"
+    omit_date: "{{ item.omit_date | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+    template_groups: "{{ item.template_groups | default(omit) }}"
+    template_json: "{{ item.template_json | default(omit) }}"
+    template_name: "{{ item.template_name | default(omit) }}"
+    template_xml: "{{ item.template_xml | default(omit) }}"
+    timeout: "{{ item.timeout | default(omit) }}"
+  loop: "{{ zabbix_config_templates }}"
+
 - name: Create host groups
   community.zabbix.zabbix_group:
     server_url: "{{ zabbix_config_server_url }}"
