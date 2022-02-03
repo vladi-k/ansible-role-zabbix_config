@@ -14,6 +14,7 @@ Role Variables
 * `zabbix_config_server_url` - URL of zabbix server
 * `zabbix_config_login_user` - login user
 * `zabbix_config_login_password` - login password
+* `zabbix_config_templates` - list of templates
 * `zabbix_config_host_groups` - list of host groups to create, example:
 
 ```yaml
@@ -31,6 +32,22 @@ zabbix_config_hosts:
 ```
 
 * `zabbix_config_actions` - list of actions
+* `zabbix_config_web_scenarios` - list of web scenarios, example:
+
+```yaml
+zabbix_config_web_scenarios:
+  - host_name: server.example.com
+    name: Site Availability
+    delay: 10m
+    retries: 3
+    steps:
+     - name: "Main page"
+       number: 1
+       url: "https://server.example.com/"
+       status_codes: 200
+       required: "It's alive"
+```
+
 
 Dependencies
 ------------
