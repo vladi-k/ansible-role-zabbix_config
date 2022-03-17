@@ -48,6 +48,7 @@ zabbix_config_web_scenarios:
        required: "It's alive"
 ```
 
+* `zabbix_config_media_types` - list of media types
 
 Dependencies
 ------------
