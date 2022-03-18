@@ -49,6 +49,8 @@ zabbix_config_web_scenarios:
 ```
 
 * `zabbix_config_media_types` - list of media types
+* `zabbix_config_usergroups` - list of user groups
+* `zabbix_config_users` - list of users
 
 Dependencies
 ------------
