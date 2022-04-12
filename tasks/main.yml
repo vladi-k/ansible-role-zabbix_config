@@ -50,7 +50,7 @@
     - zabbix_config_hosts
 
 - name: Manage actions
-  community.zabbix.zabbix_action:
+  zabbix_action:
     server_url: "{{ zabbix_config_server_url }}"
     login_user: "{{ zabbix_config_login_user }}"
     login_password: "{{ zabbix_config_login_password }}"
