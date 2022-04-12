@@ -16,4 +16,4 @@ jobs:
           use-pylint: false
           use-isort: false
           use-mypy: false
-          extra-pycodestyle-options: --max-line-length=100
+          use-pycodestyle: false
