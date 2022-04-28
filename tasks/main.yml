@@ -45,6 +45,13 @@
     status: "{{ item.status | default(omit) }}"
     tags: "{{ item.tags | default(omit) }}"
     visible_name: "{{ item.visible_name | default(omit) }}"
+    ca_cert: "{{ item.ca_cert | default(omit) }}"
+    proxy: "{{ item.proxy | default(omit) }}"
+    tls_accept: "{{ item.tls_accept | default(omit) }}"
+    tls_connect: "{{ item.tls_connect | default(omit) }}"
+    tls_psk: "{{ item.tls_psk | default(omit) }}"
+    tls_psk_identity: "{{ item.tls_psk_identity | default(omit) }}"
+    tls_subject: "{{ item.tls_subject | default(omit) }}"
   loop: "{{ zabbix_config_hosts }}"
   tags:
     - zabbix_config_hosts
