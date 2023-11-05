@@ -1,112 +1,97 @@
 ---
 - name: Manage templates
   community.zabbix.zabbix_template:
-    server_url: "{{ zabbix_config_server_url }}"
-    login_user: "{{ zabbix_config_login_user }}"
-    login_password: "{{ zabbix_config_login_password }}"
     clear_templates: "{{ item.clear_templates | default(omit) }}"
-    dump_format: "{{ item.dump_format | default(omit) }}"
+    http_login_password: "{{ zabbix_config_login_user | default(omit) }}"
+    http_login_user: "{{ zabbix_config_login_password | default(omit) }}"
     link_templates: "{{ item.link_templates | default(omit) }}"
     macros: "{{ item.macros | default(omit) }}"
-    omit_date: "{{ item.omit_date | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
+    tags: "{{ item.tags | default(omit) }}"
     template_groups: "{{ item.template_groups | default(omit) }}"
     template_json: "{{ item.template_json | default(omit) }}"
     template_name: "{{ item.template_name | default(omit) }}"
     template_xml: "{{ item.template_xml | default(omit) }}"
-    timeout: "{{ item.timeout | default(omit) }}"
   loop: "{{ zabbix_config_templates }}"
   tags:
     - zabbix_config_templates
 
 - name: Create host groups
   community.zabbix.zabbix_group:
-    server_url: "{{ zabbix_config_server_url }}"
-    login_user: "{{ zabbix_config_login_user }}"
-    login_password: "{{ zabbix_config_login_password }}"
-    state: present
     host_groups: "{{ item }}"
+    http_login_password: "{{ zabbix_config_login_user | default(omit) }}"
+    http_login_user: "{{ zabbix_config_login_password | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
   loop: "{{ zabbix_config_host_groups }}"
   tags:
     - zabbix_config_host_groups
 
 - name: Manage hosts
   community.zabbix.zabbix_host:
+    ca_cert: "{{ item.ca_cert | default(omit) }}"
     description: "{{ item.description | default(omit) }}"
+    force: "{{ item.force | default(omit) }}"
     host_groups: "{{ item.host_groups | default(omit) }}"
     host_name: "{{ item.host_name }}"
+    http_login_password: "{{ zabbix_config_login_user | default(omit) }}"
+    http_login_user: "{{ zabbix_config_login_password | default(omit) }}"
     interfaces: "{{ item.interfaces | default(omit) }}"
+    inventory_mode: "{{ item.inventory_mode | default(omit) }}"
+    inventory_zabbix: "{{ item.inventory_zabbix | default(omit) }}"
+    ipmi_authtype: "{{ item.ipmi_authtype | default(omit) }}"
+    ipmi_password: "{{ item.ipmi_password | default(omit) }}"
+    ipmi_privilege: "{{ item.ipmi_privilege | default(omit) }}"
+    ipmi_username: "{{ item.ipmi_username | default(omit) }}"
     link_templates: "{{ item.link_templates | default(omit) }}"
-    login_password: "{{ zabbix_config_login_password }}"
-    login_user: "{{ zabbix_config_login_user }}"
     macros: "{{ item.macros | default(omit) }}"
-    server_url: "{{ zabbix_config_server_url }}"
+    proxy: "{{ item.proxy | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
     status: "{{ item.status | default(omit) }}"
     tags: "{{ item.tags | default(omit) }}"
-    visible_name: "{{ item.visible_name | default(omit) }}"
-    ca_cert: "{{ item.ca_cert | default(omit) }}"
-    proxy: "{{ item.proxy | default(omit) }}"
     tls_accept: "{{ item.tls_accept | default(omit) }}"
     tls_connect: "{{ item.tls_connect | default(omit) }}"
     tls_psk: "{{ item.tls_psk | default(omit) }}"
     tls_psk_identity: "{{ item.tls_psk_identity | default(omit) }}"
     tls_subject: "{{ item.tls_subject | default(omit) }}"
+    visible_name: "{{ item.visible_name | default(omit) }}"
   loop: "{{ zabbix_config_hosts }}"
   tags:
     - zabbix_config_hosts
 
-- name: Manage actions
-  zabbix_action:
-    server_url: "{{ zabbix_config_server_url }}"
-    login_user: "{{ zabbix_config_login_user }}"
-    login_password: "{{ zabbix_config_login_password }}"
+- name: Manage user groups
+  community.zabbix.zabbix_usergroup:
+    debug_mode: "{{ item.debug_mode | default(omit) }}"
+    gui_access: "{{ item.gui_access | default(omit) }}"
+    hostgroup_rights: "{{ item.hostgroup_rights | default(omit) }}"
+    http_login_password: "{{ zabbix_config_login_user | default(omit) }}"
+    http_login_user: "{{ zabbix_config_login_password | default(omit) }}"
     name: "{{ item.name }}"
-    update_operations: "{{ item.update_operations | default(omit) }}"
-    conditions: "{{ item.conditions | default(omit) }}"
-    esc_period: "{{ item.esc_period | default(omit) }}"
-    eval_type: "{{ item.eval_type | default(omit) }}"
-    event_source: "{{ item.event_source | default(omit) }}"
-    formula: "{{ item.formula | default(omit) }}"
-    operations: "{{ item.operations | default(omit) }}"
-    pause_in_maintenance: "{{ item.pause_in_maintenance | default(omit) }}"
-    recovery_operations: "{{ item.recovery_operations | default(omit) }}"
+    rights: "{{ item.rights | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
     status: "{{ item.status | default(omit) }}"
-    timeout: "{{ item.timeout | default(omit) }}"
-  loop: "{{ zabbix_config_actions }}"
+    tag_filters: "{{ item.tag_filters | default(omit) }}"
+    templategroup_rights: "{{ item.templategroup_rights | default(omit) }}"
+    userdirectory: "{{ item.userdirectory | default(omit) }}"
+  loop: "{{ zabbix_config_usergroups }}"
   tags:
-    - zabbix_config_actions
-
-- name: Manage web scenarios
-  zabbix_webscenario:
-    server_url: "{{ zabbix_config_server_url }}"
-    login_user: "{{ zabbix_config_login_user }}"
-    login_password: "{{ zabbix_config_login_password }}"
-    name: "{{ item.name }}"
-    host_name: "{{ item.host_name }}"
-    steps: "{{ item.steps | default(omit) }}"
-    agent: "{{ item.agent | default(omit) }}"
-    state: "{{ item.state | default(omit) }}"
-    delay: "{{ item.delay | default(omit) }}"
-    headers: "{{ item.headers | default(omit) }}"
-    retries: "{{ item.retries | default(omit) }}"
-  loop: "{{ zabbix_config_web_scenarios }}"
-  tags:
-    - zabbix_config_web_scenarios
+    - zabbix_config_usergroups
 
 - name: Manage media types
   community.zabbix.zabbix_mediatype:
-    server_url: "{{ zabbix_config_server_url }}"
-    login_user: "{{ zabbix_config_login_user }}"
-    login_password: "{{ zabbix_config_login_password }}"
-    name: "{{ item.name }}"
-    type: "{{ item.type }}"
     attempt_interval: "{{ item.attempt_interval | default(omit) }}"
     description: "{{ item.description | default(omit) }}"
+    event_menu: "{{ item.event_menu | default(omit) }}"
+    event_menu_name: "{{ item.event_menu_name | default(omit) }}"
+    event_menu_url: "{{ item.event_menu_url | default(omit) }}"
+    gsm_modem: "{{ item.gsm_modem | default(omit) }}"
+    http_login_password: "{{ zabbix_config_login_user | default(omit) }}"
+    http_login_user: "{{ zabbix_config_login_password | default(omit) }}"
     max_attempts: "{{ item.max_attempts | default(omit) }}"
     max_sessions: "{{ item.max_sessions | default(omit) }}"
     message_templates: "{{ item.message_templates | default(omit) }}"
+    message_text_limit: "{{ item.message_text_limit | default(omit) }}"
+    name: "{{ item.name }}"
+    password: "{{ item.password | default(omit) }}"
     process_tags: "{{ item.process_tags | default(omit) }}"
     script_name: "{{ item.script_name | default(omit) }}"
     script_params: "{{ item.script_params | default(omit) }}"
@@ -119,6 +104,8 @@
     smtp_verify_host: "{{ item.smtp_verify_host | default(omit) }}"
     smtp_verify_peer: "{{ item.smtp_verify_peer | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
+    status: "{{ item.status | default(omit) }}"
+    type: "{{ item.type }}"
     username: "{{ item.username | default(omit) }}"
     webhook_params: "{{ item.webhook_params | default(omit) }}"
     webhook_script: "{{ item.webhook_script | default(omit) }}"
@@ -127,30 +114,14 @@
   tags:
     - zabbix_config_media_types
 
-- name: Manage user groups
-  community.zabbix.zabbix_usergroup:
-    server_url: "{{ zabbix_config_server_url }}"
-    login_user: "{{ zabbix_config_login_user }}"
-    login_password: "{{ zabbix_config_login_password }}"
-    name: "{{ item.name }}"
-    debug_mode: "{{ item.debug_mode | default(omit) }}"
-    gui_access: "{{ item.gui_access | default(omit) }}"
-    rights: "{{ item.rights | default(omit) }}"
-    state: "{{ item.state | default(omit) }}"
-    status: "{{ item.status | default(omit) }}"
-    tag_filters: "{{ item.tag_filters | default(omit) }}"
-  loop: "{{ zabbix_config_usergroups }}"
-  tags:
-    - zabbix_config_usergroups
-
 - name: Manage users
   community.zabbix.zabbix_user:
-    server_url: "{{ zabbix_config_server_url }}"
-    login_user: "{{ zabbix_config_login_user }}"
-    login_password: "{{ zabbix_config_login_password }}"
-    alias: "{{ item.alias }}"
     after_login_url: "{{ item.after_login_url | default(omit) }}"
     autologin: "{{ item.autologin | default(omit) }}"
+    autologout: "{{ item.autologout | default(omit) }}"
+    http_login_password: "{{ zabbix_config_login_user | default(omit) }}"
+    http_login_user: "{{ zabbix_config_login_password | default(omit) }}"
+    lang: "{{ item.lang | default(omit) }}"
     name: "{{ item.name | default(omit) }}"
     override_passwd: "{{ item.override_passwd | default(omit) }}"
     passwd: "{{ item.passwd | default(omit) }}"
@@ -162,7 +133,46 @@
     theme: "{{ item.theme | default(omit) }}"
     timezone: "{{ item.timezone | default(omit) }}"
     user_medias: "{{ item.user_medias | default(omit) }}"
+    username: "{{ item.username }}"
     usrgrps: "{{ item.usrgrps | default(omit) }}"
   loop: "{{ zabbix_config_users }}"
+  no_log: true
   tags:
     - zabbix_config_users
+
+- name: Manage actions
+  community.zabbix.zabbix_action:
+    acknowledge_operations: "{{ item.acknowledge_operations | default(omit) }}"
+    conditions: "{{ item.conditions | default(omit) }}"
+    esc_period: "{{ item.esc_period | default(omit) }}"
+    eval_type: "{{ item.eval_type | default(omit) }}"
+    event_source: "{{ item.event_source | default(omit) }}"
+    formula: "{{ item.formula | default(omit) }}"
+    http_login_password: "{{ zabbix_config_login_user | default(omit) }}"
+    http_login_user: "{{ zabbix_config_login_password | default(omit) }}"
+    name: "{{ item.name }}"
+    operations: "{{ item.operations | default(omit) }}"
+    pause_in_maintenance: "{{ item.pause_in_maintenance | default(omit) }}"
+    pause_symptoms: "{{ item.pause_symptoms | default(omit) }}"
+    recovery_operations: "{{ item.recovery_operations | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+    status: "{{ item.status | default(omit) }}"
+  loop: "{{ zabbix_config_actions }}"
+  tags:
+    - zabbix_config_actions
+
+- name: Manage web scenarios
+  zabbix_webscenario:
+    http_login_password: "{{ zabbix_config_login_user | default(omit) }}"
+    http_login_user: "{{ zabbix_config_login_password | default(omit) }}"
+    name: "{{ item.name }}"
+    host_name: "{{ item.host_name }}"
+    steps: "{{ item.steps | default(omit) }}"
+    agent: "{{ item.agent | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+    delay: "{{ item.delay | default(omit) }}"
+    headers: "{{ item.headers | default(omit) }}"
+    retries: "{{ item.retries | default(omit) }}"
+  loop: "{{ zabbix_config_web_scenarios }}"
+  tags:
+    - zabbix_config_web_scenarios

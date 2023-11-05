@@ -8,10 +8,11 @@ Requirements
 
 * Zabbix 5.4+
 
+Based on modules from [community.zabbix](https://github.com/ansible-collections/community.zabbix) collection. Check their github repo for connection details and more info.
+
 Role Variables
 --------------
 
-* `zabbix_config_server_url` - URL of zabbix server
 * `zabbix_config_login_user` - login user
 * `zabbix_config_login_password` - login password
 * `zabbix_config_templates` - list of templates
@@ -57,7 +58,7 @@ Dependencies
 
 Collections:
 
-* `community.zabbix`
+* `community.zabbix` 2.1.0+
 
 Example Playbook
 ----------------
