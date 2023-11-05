@@ -1,5 +1,4 @@
 ---
-zabbix_config_server_url: http://localhost
 zabbix_config_login_user: Admin
 zabbix_config_login_password: zabbix
 zabbix_config_templates: []

@@ -531,15 +531,10 @@ def main():
         )
 
     web_scenario_params = module.params.copy()
-    web_scenario_params.pop("server_url")
-    web_scenario_params.pop("login_user")
-    web_scenario_params.pop("login_password")
     web_scenario_params.pop("http_login_password")
     web_scenario_params.pop("http_login_user")
-    web_scenario_params.pop("validate_certs")
     web_scenario_params.pop("host_name")
     web_scenario_params.pop("state")
-    web_scenario_params.pop("timeout")
 
     host_name = module.params["host_name"]
     state = module.params["state"]
