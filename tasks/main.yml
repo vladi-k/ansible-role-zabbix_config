@@ -114,6 +114,18 @@
   tags:
     - zabbix_config_media_types
 
+- name: Manage user roles
+  community.zabbix.zabbix_user_role:
+    http_login_password: "{{ zabbix_config_login_user | default(omit) }}"
+    http_login_user: "{{ zabbix_config_login_password | default(omit) }}"
+    name: "{{ item.name }}"
+    rules: "{{ item.rules | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+    type: "{{ item.type | default(omit) }}"
+  loop: "{{ zabbix_config_user_roles }}"
+  tags:
+    - zabbix_config_user_roles
+
 - name: Manage users
   community.zabbix.zabbix_user:
     after_login_url: "{{ item.after_login_url | default(omit) }}"
