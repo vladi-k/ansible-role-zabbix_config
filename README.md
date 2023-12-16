@@ -23,6 +23,7 @@ zabbix_config_host_groups:
   - Web Servers
 ```
 
+* `zabbix_config_proxies` - list of zabbix proxies to create
 * `zabbix_config_hosts` - list of hosts to manage, example:
 
 ```yaml
@@ -51,6 +52,7 @@ zabbix_config_web_scenarios:
 
 * `zabbix_config_media_types` - list of media types
 * `zabbix_config_usergroups` - list of user groups
+* `zabbix_config_user_roles` - list of user roles
 * `zabbix_config_users` - list of users
 
 Dependencies

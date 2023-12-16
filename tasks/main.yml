@@ -26,6 +26,26 @@
   tags:
     - zabbix_config_host_groups
 
+- name: Manage zabbix proxies
+  community.zabbix.zabbix_proxy:
+    ca_cert: "{{ item.ca_cert | default(omit) }}"
+    description: "{{ item.description | default(omit) }}"
+    http_login_password: "{{ zabbix_config_login_user | default(omit) }}"
+    http_login_user: "{{ zabbix_config_login_password | default(omit) }}"
+    interface: "{{ item.interface | default(omit) }}"
+    proxy_address: "{{ item.proxy_address | default(omit) }}"
+    proxy_name: "{{ item.proxy_name }}"
+    state: "{{ item.state | default(omit) }}"
+    status: "{{ item.status | default(omit) }}"
+    tls_accept: "{{ item.tls_accept | default(omit) }}"
+    tls_connect: "{{ item.tls_connect | default(omit) }}"
+    tls_psk: "{{ item.tls_psk | default(omit) }}"
+    tls_psk_identity: "{{ item.tls_psk_identity | default(omit)}}"
+    tls_subject: "{{ item.tls_subject | default(omit) }}"
+  loop: "{{ zabbix_config_proxies }}"
+  tags:
+    - zabbix_config_proxies
+
 - name: Manage hosts
   community.zabbix.zabbix_host:
     ca_cert: "{{ item.ca_cert | default(omit) }}"
@@ -113,6 +133,18 @@
   loop: "{{ zabbix_config_media_types }}"
   tags:
     - zabbix_config_media_types
+
+- name: Manage user roles
+  community.zabbix.zabbix_user_role:
+    http_login_password: "{{ zabbix_config_login_user | default(omit) }}"
+    http_login_user: "{{ zabbix_config_login_password | default(omit) }}"
+    name: "{{ item.name }}"
+    rules: "{{ item.rules | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+    type: "{{ item.type | default(omit) }}"
+  loop: "{{ zabbix_config_user_roles }}"
+  tags:
+    - zabbix_config_user_roles
 
 - name: Manage users
   community.zabbix.zabbix_user:
