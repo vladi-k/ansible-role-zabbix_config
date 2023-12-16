@@ -23,6 +23,7 @@ zabbix_config_host_groups:
   - Web Servers
 ```
 
+* `zabbix_config_proxies` - list of zabbix proxies to create
 * `zabbix_config_hosts` - list of hosts to manage, example:
 
 ```yaml

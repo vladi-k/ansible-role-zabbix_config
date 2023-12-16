@@ -3,6 +3,7 @@ zabbix_config_login_user: Admin
 zabbix_config_login_password: zabbix
 zabbix_config_templates: []
 zabbix_config_host_groups: []
+zabbix_config_proxies: []
 zabbix_config_hosts: []
 zabbix_config_actions: []
 zabbix_config_web_scenarios: []
