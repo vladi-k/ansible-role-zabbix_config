@@ -64,6 +64,7 @@
     ipmi_username: "{{ item.ipmi_username | default(omit) }}"
     link_templates: "{{ item.link_templates | default(omit) }}"
     macros: "{{ item.macros | default(omit) }}"
+    monitored_by: "{{ item.monitored_by | default(omit) }}"
     proxy: "{{ item.proxy | default(omit) }}"
     state: "{{ item.state | default(omit) }}"
     status: "{{ item.status | default(omit) }}"
